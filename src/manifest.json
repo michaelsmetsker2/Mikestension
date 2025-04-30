@@ -1,0 +1,33 @@
+{
+    "name": "Mikestension",
+    "description": "Hopefully one day a tab manager",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+      "default_popup": "html/popup.html",
+      "default_icon": "img/icon/icon.png"
+    },
+    "incognito": "split",
+    
+    "icons": {
+      "256": "img/icon/256x256.png",
+      "128": "img/icon/128x128.png",
+      "48": "img/icon/48x48.png"
+    },
+    "host_permissions": [
+      "<all_urls>"
+    ],
+    "side_panel": {
+      "default_path": "html/sidepanel.html"
+    },
+    "permissions": [
+      "bookmarks",
+      "favicon",
+      "contextMenus",
+      "scripting",
+      "unlimitedStorage",
+      "tabs",
+      "tabGroups",
+      "sidePanel"
+    ]
+  }
