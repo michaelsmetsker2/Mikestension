@@ -1,7 +1,8 @@
-chrome.runtime.onInstalled.addListener(() => { //will this actually work consistantly if not just oninstalled?
-  console.log('Extension installed, commands should be available');
-});
+/*
+ * Background script
+*/
 
+// Listens for the command to open the side panel
 chrome.commands.onCommand.addListener(() => {
   console.log("opening side panel");
   chrome.tabs.query({ active: true, currentWindow: true }, ([tab]) => {
@@ -17,5 +18,4 @@ chrome.sidePanel
 .setPanelBehavior({ openPanelOnActionClick: true })
 .catch((error) => console.error(error)
 );
-
 */

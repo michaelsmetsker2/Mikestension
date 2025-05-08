@@ -1,10 +1,7 @@
-const tabs = await chrome.tabs.query({});
-
-const collator = new Intl.Collator();
-tabs.sort((a, b) => collator.compare(a.title, b.title));
+const tabs = await chrome.tabs.query({}); // returns all tabs in all windows
 
 const template = document.getElementById("li_template");
-const elements = new Set();
+const elements = new Set(); //set avoids duplicates, not sure if this will not work if the same tab is open twice
 
 for (const tab of tabs) {
   const element = template.content.firstElementChild.cloneNode(true);
