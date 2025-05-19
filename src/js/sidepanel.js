@@ -1,9 +1,9 @@
 const tabs = await chrome.tabs.query({}); // returns all tabs in all windows
 
 const template = document.getElementById("li_template");
-const elements = new Set(); //set avoids duplicates, seems to still add two tabs if the same one is open twice
+const tab_list = new Set(); //list of tab dom elements in the list
 
-//populates the side panel with all tabs
+//populates the side tab list with all currently open tabs
 for (const tab of tabs) {
   const element = template.content.firstElementChild.cloneNode(true);
 
@@ -14,11 +14,13 @@ for (const tab of tabs) {
     await chrome.windows.update(tab.windowId, { focused: true });
   });
 
-  elements.add(element);
+  tab_list.add(element);
 }
 
+//populate tab_list with all tabs in the corosponding bookmark folder
+
 //ads all elements in elements to the first ul element in the side panel
-document.querySelector("ul").append(...elements);
+document.querySelector("ul").append(...tab_list);
 
 const button = document.querySelector("button");
 button.addEventListener("click", async () => {
@@ -28,3 +30,8 @@ button.addEventListener("click", async () => {
     await chrome.tabGroups.update(group, { title: "DOCS" });
   }
 });
+
+//update the list of elements when a tab is closed
+chrome.runtime.onMessage.addListenr((TAB_CLOSED, tabId) => {
+
+})

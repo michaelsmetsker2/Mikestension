@@ -2,8 +2,6 @@
  * Service worker
 */
 
-import * as tabManager from './tabManager.js';
-
 chrom.runtime.onStartup.addListener(() => {
   console.log("script started");
 
@@ -29,3 +27,9 @@ chrome.sidePanel
 .catch((error) => console.error(error)
 );
 */
+
+//chrome tab has been closed
+chrome.tabs.onRemoved.addListener((tabId) => {
+  //no good way to test if side panel is open or not
+  chrome.runtime.sendMessage({type: 'TAB_CLOSED', tabId });
+});
