@@ -1,33 +1,46 @@
-//contains logic for displaying tabs and bookmarks in the sidepanel
+/**
+ * @fileoverview
+ * Contains logic for displaying tabs and bookmarks in the sidepanel
+*/
+
+import * as TabMangager from "./tabmanager.js";
 
 const template = document.getElementById("li_template");
 const tab_list = new Set(); //list of tab dom elements in the list
 
-const tabs = await chrome.tabs.query({}); // returns all tabs in all windows
+{ //populate tab list
 
-for (const tab of tabs) { //populates the side tab list with all currently open tabs
-  const element = template.content.firstElementChild.cloneNode(true);
+  // returns all tabs in all windows
+  const tabs = await chrome.tabs.query({}); // TODO sorting by window
 
-  element.querySelector(".title").textContent = tab.title;
-  element.querySelector("a").addEventListener("click", async () => {
-    // focuses the window and tab of the clicked element
-    await chrome.tabs.update(tab.id, { active: true });
-    await chrome.windows.update(tab.windowId, { focused: true });
-  });
+  //populates the side tab list with all currently open tabs
+  for (const tab of tabs) {
+    const element = template.content.firstElementChild.cloneNode(true);
 
-  tab_list.add(element);
+    element.querySelector(".title").textContent = tab.title;
+    element.querySelector("a").addEventListener("click", async () => {
+      await TabMangager.focusTab(tab.id, tab.windowId);
+    // TODO close tab button
+    // TODO stash tab button
+    });
+
+    tab_list.add(element);
+  }
+
+  //ads all elements in tab_list to the side panel's first ul in order
+  document.querySelector("ul").append(...tab_list); // TODO get specific ul
+
+  
+  //TODO bookmarks
 }
 
 //update the list of elements when a tab is closed
 chrome.runtime.onMessage.addListener((TAB_CLOSED, tabId) => {
-
+  
 })
 
-//populate tab_list with all tabs in the corosponding bookmark folder
-
-//ads all elements in elements to the first ul element in the side panel
-document.querySelector("ul").append(...tab_list);
-
+//group button, maybe use this, maybe not
+/*
 const button = document.querySelector("button");
 button.addEventListener("click", async () => {
   const tabIds = tabs.map(({ id }) => id);
@@ -36,3 +49,4 @@ button.addEventListener("click", async () => {
     await chrome.tabGroups.update(group, { title: "DOCS" });
   }
 });
+*/
