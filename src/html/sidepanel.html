@@ -10,9 +10,16 @@
     <!-- Template for tabs to appear in the side panel-->
     <template id="li_template">
       <li>
-        <a>
-          <h3 class="title">Tab Title</h3>
-        </a>
+        <div>
+          <img class = "favicon">
+          <a>
+            <h3 class="title">Tab Title</h3>
+          </a class = "stashInteractable">
+          <a>
+          </a>
+          <a class="closeInteractable">
+          </a>
+        </div>
       </li>
     </template>
 
@@ -20,7 +27,13 @@
     <button>Group Tabs</button>
     
     <!-- List of tabs-->
-    <ul></ul>
+    <ul>
+      <li>
+        <div>
+          <p>open tabs</p>
+        </div>
+      </li>
+    </ul>
 
     <script src="../js/sidepanel.js" type="module"></script>
   </body>
