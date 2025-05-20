@@ -2,14 +2,7 @@
  * Service worker
 */
 
-chrom.runtime.onStartup.addListener(() => {
-  console.log("script started");
-
-  //populate the tabmanager list with current tabs
-  //populate the tabmanager with all tabs in groups or bookmarks(undecided)
-})
-
-//should make the side panel close as well if it is alreadyt open
+//should make the side panel close as well if it is already open
 // Listens for the command to open the side panel
 chrome.commands.onCommand.addListener(() => {
   console.log("opening side panel");

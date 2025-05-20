@@ -1,10 +1,11 @@
-const tabs = await chrome.tabs.query({}); // returns all tabs in all windows
+//contains logic for displaying tabs and bookmarks in the sidepanel
 
 const template = document.getElementById("li_template");
 const tab_list = new Set(); //list of tab dom elements in the list
 
-//populates the side tab list with all currently open tabs
-for (const tab of tabs) {
+const tabs = await chrome.tabs.query({}); // returns all tabs in all windows
+
+for (const tab of tabs) { //populates the side tab list with all currently open tabs
   const element = template.content.firstElementChild.cloneNode(true);
 
   element.querySelector(".title").textContent = tab.title;
@@ -16,6 +17,11 @@ for (const tab of tabs) {
 
   tab_list.add(element);
 }
+
+//update the list of elements when a tab is closed
+chrome.runtime.onMessage.addListener((TAB_CLOSED, tabId) => {
+
+})
 
 //populate tab_list with all tabs in the corosponding bookmark folder
 
@@ -30,8 +36,3 @@ button.addEventListener("click", async () => {
     await chrome.tabGroups.update(group, { title: "DOCS" });
   }
 });
-
-//update the list of elements when a tab is closed
-chrome.runtime.onMessage.addListenr((TAB_CLOSED, tabId) => {
-
-})
