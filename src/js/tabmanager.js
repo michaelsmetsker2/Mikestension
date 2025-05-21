@@ -6,6 +6,8 @@
  * @module TabManager
  */
 
+// TODO figure out if this file is even necessary
+
 /**
  * Focuses the given tab and its window.
  * 
@@ -16,15 +18,6 @@
 export const focusTab = async (tabId, windowId) => {
     await chrome.tabs.update(tabId, { active: true });
     await chrome.windows.update(windowId, { focused: true });
-};
-
-/**
- * 
- * 
- * @param {number} tabId 
- */
-export const tabClosed = async (tabId) => {
-
 };
 
 export async function deleteTab(tabId) {
