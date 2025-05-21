@@ -17,8 +17,9 @@ const tab_list = new Set(); //list of tab dom elements in the list
   for (const tab of tabs) {
     const element = template.content.firstElementChild.cloneNode(true);
 
+    element.querySelector(".favicon").src = tab.favIconUrl
     element.querySelector(".title").textContent = tab.title;
-    element.querySelector("a").addEventListener("click", async () => {
+    element.querySelector(".tabContainer").addEventListener("click", async () => {
       await TabMangager.focusTab(tab.id, tab.windowId);
     // TODO close tab button
     // TODO stash tab button
@@ -34,19 +35,14 @@ const tab_list = new Set(); //list of tab dom elements in the list
   //TODO bookmarks
 }
 
-//update the list of elements when a tab is closed
+/**
+ * update the list of elements when a tab is closed
+ */
 chrome.runtime.onMessage.addListener((TAB_CLOSED, tabId) => {
-  
-})
-
-//group button, maybe use this, maybe not
-/*
-const button = document.querySelector("button");
-button.addEventListener("click", async () => {
-  const tabIds = tabs.map(({ id }) => id);
-  if (tabIds.length) {
-    const group = await chrome.tabs.group({ tabIds });
-    await chrome.tabGroups.update(group, { title: "DOCS" });
+  for (const tab of tab_list) {
+    if (tab.id === tabId) {
+      console.log("yay");
+    }
+    return;
   }
-});
-*/
+})

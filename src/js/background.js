@@ -1,4 +1,5 @@
-/*
+/**
+ * @fileoverview 
  * Service worker
 */
 

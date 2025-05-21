@@ -13,12 +13,21 @@
  * @param {number} windowId - The ID of the window containing the tab.
  * @return {Promise<void>} - A promise that resolves when the tab and window are focused
 */
-export async function focusTab(tabId, windowId) {
+export const focusTab = async (tabId, windowId) => {
     await chrome.tabs.update(tabId, { active: true });
     await chrome.windows.update(windowId, { focused: true });
-}
+};
 
-export function deleteTab(tabId) {
+/**
+ * 
+ * 
+ * @param {number} tabId 
+ */
+export const tabClosed = async (tabId) => {
+
+};
+
+export async function deleteTab(tabId) {
 
 }
 
